@@ -19,7 +19,7 @@ public class CategoryDeatailsModel {
     @SerializedName("category_img")
     private String category_img;
     @SerializedName("products")
-    private List<ProductModel> products;
+    public List<ProductModel> products;
 
     public String getId() {
         return id;
