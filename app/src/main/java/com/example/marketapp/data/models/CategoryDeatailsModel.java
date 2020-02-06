@@ -9,7 +9,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class CategoryModel {
+public class CategoryDeatailsModel {
+
 
     @SerializedName("id")
     private String id;
@@ -17,6 +18,8 @@ public class CategoryModel {
     private String name;
     @SerializedName("category_img")
     private String category_img;
+    @SerializedName("products")
+    private List<ProductModel> products;
 
     public String getId() {
         return id;
@@ -28,6 +31,10 @@ public class CategoryModel {
 
     public String getCategory_img() {
         return category_img;
+    }
+
+    public List<ProductModel> getProducts() {
+        return products;
     }
 
     @BindingAdapter({"bind:category_img"})

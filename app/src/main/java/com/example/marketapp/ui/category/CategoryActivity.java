@@ -38,7 +38,7 @@ public class CategoryActivity extends AppCompatActivity {
 
         productsViewModel.getCategories(id).observe(this, productModels -> {
             if (productModels != null)
-                Log.e("TEST", productModels.getName());
+                Log.e("TEST", productModels.getProducts().get(0).getName());
         });
     }
 }

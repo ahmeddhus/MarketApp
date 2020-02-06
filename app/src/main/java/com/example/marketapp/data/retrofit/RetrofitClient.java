@@ -1,5 +1,6 @@
 package com.example.marketapp.data.retrofit;
 
+import com.example.marketapp.data.models.CategoryDeatailsModel;
 import com.example.marketapp.data.models.CategoryModel;
 
 import java.util.List;
@@ -14,5 +15,5 @@ public interface RetrofitClient {
     Call<List<CategoryModel>> getCategories();
 
     @GET("task/categories/{id}")
-    Call<CategoryModel> getCategory(@Path("id") String id);
+    Call<CategoryDeatailsModel> getCategory(@Path("id") String id);
 }

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.marketapp.data.models.CategoryDeatailsModel;
 import com.example.marketapp.data.models.CategoryModel;
 import com.example.marketapp.data.models.ProductModel;
 import com.example.marketapp.data.retrofit.RetrofitClient;
@@ -35,20 +36,20 @@ public class ProductsRepository {
     }
 
 
-    public MutableLiveData<CategoryModel> getProducts(String id) {
+    public MutableLiveData<CategoryDeatailsModel> getProducts(String id) {
 
-        final MutableLiveData<CategoryModel> newData = new MutableLiveData<>();
+        final MutableLiveData<CategoryDeatailsModel> newData = new MutableLiveData<>();
 
-        retrofitClient.getCategory(id).enqueue(new Callback<CategoryModel>() {
+        retrofitClient.getCategory(id).enqueue(new Callback<CategoryDeatailsModel>() {
             @Override
-            public void onResponse(@NotNull Call<CategoryModel> call, @NotNull Response<CategoryModel> response) {
+            public void onResponse(@NotNull Call<CategoryDeatailsModel> call, @NotNull Response<CategoryDeatailsModel> response) {
                 if (response.isSuccessful())
                     newData.setValue(response.body());
                 Log.e("getProducts: ", response.message());
             }
 
             @Override
-            public void onFailure(@NotNull Call<CategoryModel> call, @NotNull Throwable t) {
+            public void onFailure(@NotNull Call<CategoryDeatailsModel> call, @NotNull Throwable t) {
                 newData.setValue(null);
                 if (t.getMessage() != null)
                     Log.e("getProductsFailure: ", t.getMessage());
