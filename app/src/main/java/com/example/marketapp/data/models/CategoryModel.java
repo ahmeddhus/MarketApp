@@ -17,8 +17,8 @@ public class CategoryModel {
     private String name;
     @SerializedName("category_img")
     private String category_img;
-    @SerializedName("products")
-    private List<ProductModel> products;
+//    @SerializedName("products")
+//    private List<ProductModel> products;
 
     public String getId() {
         return id;
@@ -32,9 +32,9 @@ public class CategoryModel {
         return category_img;
     }
 
-    public List<ProductModel> getProducts() {
-        return products;
-    }
+//    public List<ProductModel> getProducts() {
+//        return products;
+//    }
 
     @BindingAdapter({"bind:category_img"})
     public static void loadImage(ImageView view, String category_img) {

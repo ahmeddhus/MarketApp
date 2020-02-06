@@ -13,12 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.IntroActivity">
-
-        </activity>
-
+        <activity android:name=".ui.category.CategoryActivity"></activity>
+        <activity android:name=".ui.product.ProductsActivity" />
+        <activity android:name=".ui.main.IntroActivity" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

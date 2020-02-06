@@ -1,7 +1,6 @@
-package com.example.marketapp.ui;
+package com.example.marketapp.ui.main;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +17,9 @@ import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemViewHolder> {
 
-    Context context;
-    List<CategoryModel> items;
-    CategoryAdapter.OnItemClickListener mOnItemClickListener;
+    private Context context;
+    private List<CategoryModel> items;
+    private CategoryAdapter.OnItemClickListener mOnItemClickListener;
 
     public CategoryAdapter(Context context, List<CategoryModel> items, OnItemClickListener mOnItemClickListener) {
         this.context = context;
@@ -51,7 +50,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemVi
     }
 
     public interface OnItemClickListener {
-        void onItemClikced(int position);
+        void onItemClicked(int position);
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -71,7 +70,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemVi
 
         @Override
         public void onClick(View v) {
-            mOnItemClickListener.onItemClikced(getAdapterPosition());
+            mOnItemClickListener.onItemClicked(getAdapterPosition());
         }
     }
 }

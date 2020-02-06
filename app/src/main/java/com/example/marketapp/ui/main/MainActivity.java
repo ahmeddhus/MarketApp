@@ -1,22 +1,24 @@
-package com.example.marketapp.ui;
+package com.example.marketapp.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.marketapp.R;
 import com.example.marketapp.data.models.CategoryModel;
+import com.example.marketapp.ui.category.CategoryActivity;
 import com.example.marketapp.viewmodels.CategoriesViewModel;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.example.marketapp.utils.Constants.CATEGORY_ID;
 
 public class MainActivity extends AppCompatActivity implements CategoryAdapter.OnItemClickListener {
 
@@ -41,8 +43,10 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
 
         categoriesViewModel.getCategories().observe(this, categoryModels -> {
 
-            if (categoryModels != null)
+            if (categoryModels != null) {
+                this.categoryModels = categoryModels;
                 setRV(categoryModels);
+            }
         });
     }
 
@@ -53,7 +57,12 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
     }
 
     @Override
-    public void onItemClikced(int position) {
+    public void onItemClicked(int position) {
 
+        String categoryId = categoryModels.get(position).getId();
+
+        Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
+        intent.putExtra(CATEGORY_ID, categoryId);
+        startActivity(intent);
     }
 }
