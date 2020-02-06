@@ -13,12 +13,13 @@ import com.example.marketapp.data.models.CategoryModel;
 import com.example.marketapp.utils.Constants;
 import com.example.marketapp.viewmodels.ProductsViewModel;
 
+import io.reactivex.disposables.CompositeDisposable;
+
 import static com.example.marketapp.utils.Constants.CATEGORY_ID;
 
 public class CategoryActivity extends AppCompatActivity {
 
     private ProductsViewModel productsViewModel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

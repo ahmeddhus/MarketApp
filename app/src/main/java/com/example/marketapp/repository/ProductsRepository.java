@@ -5,18 +5,14 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.marketapp.data.models.CategoryDeatailsModel;
-import com.example.marketapp.data.models.CategoryModel;
-import com.example.marketapp.data.models.ProductModel;
+
 import com.example.marketapp.data.retrofit.RetrofitClient;
 import com.example.marketapp.data.retrofit.RetrofitService;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class ProductsRepository {
 
@@ -39,23 +35,27 @@ public class ProductsRepository {
     public MutableLiveData<CategoryDeatailsModel> getProducts(String id) {
 
         final MutableLiveData<CategoryDeatailsModel> newData = new MutableLiveData<>();
+        CompositeDisposable disposable = new CompositeDisposable();
 
-        retrofitClient.getCategory(id).enqueue(new Callback<CategoryDeatailsModel>() {
-            @Override
-            public void onResponse(@NotNull Call<CategoryDeatailsModel> call, @NotNull Response<CategoryDeatailsModel> response) {
-                if (response.isSuccessful())
-                    newData.setValue(response.body());
-                Log.e("getProducts: ", response.message());
-            }
+        disposable.add(
+                retrofitClient.getCategory(id)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableSingleObserver<CategoryDeatailsModel>() {
+                            @Override
+                            public void onSuccess(CategoryDeatailsModel categoryDeatailsModel) {
+                                newData.setValue(categoryDeatailsModel);
+                                Log.e("getProducts", "OK");
+                            }
 
-            @Override
-            public void onFailure(@NotNull Call<CategoryDeatailsModel> call, @NotNull Throwable t) {
-                newData.setValue(null);
-                if (t.getMessage() != null)
-                    Log.e("getProductsFailure: ", t.getMessage());
-            }
-        });
-
+                            @Override
+                            public void onError(Throwable e) {
+                                newData.setValue(null);
+                                if (e.getMessage() != null)
+                                    Log.e("getProductsFailure", e.getMessage());
+                            }
+                        })
+        );
         return newData;
     }
 }

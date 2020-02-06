@@ -8,13 +8,12 @@ import com.example.marketapp.data.models.CategoryModel;
 import com.example.marketapp.data.retrofit.RetrofitClient;
 import com.example.marketapp.data.retrofit.RetrofitService;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class CategoriesRepository {
 
@@ -36,22 +35,27 @@ public class CategoriesRepository {
 
         final MutableLiveData<List<CategoryModel>> newData = new MutableLiveData<>();
 
-        retrofitClient.getCategories().enqueue(new Callback<List<CategoryModel>>() {
-            @Override
-            public void onResponse(@NotNull Call<List<CategoryModel>> call, @NotNull Response<List<CategoryModel>> response) {
-                if (response.isSuccessful())
-                    newData.setValue(response.body());
-                Log.e("getCategories: ", response.message());
-            }
+        CompositeDisposable disposable = new CompositeDisposable();
 
-            @Override
-            public void onFailure(@NotNull Call<List<CategoryModel>> call, @NotNull Throwable t) {
-                newData.setValue(null);
-                if (t.getMessage() != null)
-                    Log.e("getCategoriesFailure: ", t.getMessage());
-            }
-        });
+        disposable.add(
+                retrofitClient.getCategories()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableSingleObserver<List<CategoryModel>>() {
+                            @Override
+                            public void onSuccess(List<CategoryModel> categoryModels) {
+                                newData.setValue(categoryModels);
+                                Log.e("getCategories", "OK");
+                            }
 
+                            @Override
+                            public void onError(Throwable e) {
+                                newData.setValue(null);
+                                if (e.getMessage() != null)
+                                    Log.e("getCategoriesFailure", e.getMessage());
+                            }
+                        })
+        );
         return newData;
     }
 }

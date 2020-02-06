@@ -1,6 +1,7 @@
 package com.example.marketapp.data.retrofit;
 
 import com.example.marketapp.utils.Constants;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,6 +21,7 @@ public class RetrofitService {
         return new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .client(okHttpClient)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create()).build();
     }
 }

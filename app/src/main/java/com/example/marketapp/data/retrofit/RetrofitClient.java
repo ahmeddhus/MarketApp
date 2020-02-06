@@ -5,6 +5,7 @@ import com.example.marketapp.data.models.CategoryModel;
 
 import java.util.List;
 
+import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -12,8 +13,8 @@ import retrofit2.http.Path;
 public interface RetrofitClient {
 
     @GET("task/categories")
-    Call<List<CategoryModel>> getCategories();
+    Single<List<CategoryModel>> getCategories();
 
     @GET("task/categories/{id}")
-    Call<CategoryDeatailsModel> getCategory(@Path("id") String id);
+    Single<CategoryDeatailsModel> getCategory(@Path("id") String id);
 }
