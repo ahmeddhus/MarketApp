@@ -12,7 +12,6 @@ import android.util.Log;
 import com.example.marketapp.R;
 import com.example.marketapp.data.models.CategoryDeatailsModel;
 import com.example.marketapp.data.models.ProductModel;
-import com.example.marketapp.ui.main.CategoryAdapter;
 import com.example.marketapp.viewmodels.ProductsViewModel;
 
 
@@ -28,9 +27,7 @@ public class CategoryActivity extends AppCompatActivity implements ProductAdapte
     @BindView(R.id.category_recycler)
     RecyclerView recyclerView;
 
-    private ProductsViewModel productsViewModel;
     private CategoryDeatailsModel deatailsModels;
-    private ProductAdapter productAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +46,7 @@ public class CategoryActivity extends AppCompatActivity implements ProductAdapte
     }
 
     private void getData(String id) {
-        productsViewModel = ViewModelProviders.of(this).get(ProductsViewModel.class);
+        ProductsViewModel productsViewModel = ViewModelProviders.of(this).get(ProductsViewModel.class);
         productsViewModel.init();
 
         productsViewModel.getCategories(id).observe(this, productModels -> {
@@ -61,7 +58,7 @@ public class CategoryActivity extends AppCompatActivity implements ProductAdapte
     }
 
     private void setRV(List<ProductModel> productModels) {
-        productAdapter = new ProductAdapter(CategoryActivity.this, productModels, this);
+        ProductAdapter productAdapter = new ProductAdapter(CategoryActivity.this, productModels, this);
         recyclerView.setAdapter(productAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(CategoryActivity.this, LinearLayoutManager.VERTICAL, false));
     }

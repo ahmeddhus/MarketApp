@@ -25,9 +25,7 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
     @BindView(R.id.categories_recycler)
     RecyclerView recyclerView;
 
-    private CategoriesViewModel categoriesViewModel;
     private List<CategoryModel> categoryModels;
-    private CategoryAdapter categoryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
     }
 
     private void getData() {
-        categoriesViewModel = ViewModelProviders.of(this).get(CategoriesViewModel.class);
+        CategoriesViewModel categoriesViewModel = ViewModelProviders.of(this).get(CategoriesViewModel.class);
         categoriesViewModel.init();
 
         categoriesViewModel.getCategories().observe(this, categoryModels -> {
@@ -51,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
     }
 
     private void setRV(List<CategoryModel> categoryModels) {
-        categoryAdapter = new CategoryAdapter(MainActivity.this, categoryModels, this);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(MainActivity.this, categoryModels, this);
         recyclerView.setAdapter(categoryAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
     }
