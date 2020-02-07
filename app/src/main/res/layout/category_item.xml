@@ -2,24 +2,20 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <data>
         <variable
             name="item"
             type="com.example.marketapp.data.models.CategoryModel" />
     </data>
 
-
     <androidx.cardview.widget.CardView
         android:layout_width="150dp"
         android:layout_height="150dp"
-        app:cardElevation="9dp"
-        android:layout_margin="8dp"
-        app:cardCornerRadius="12dp"
+        android:layout_margin="4dp"
         android:background="@drawable/item_shape">
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
@@ -32,8 +28,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{item.name}"
+                android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:layout_alignParentBottom="true"
                 android:layout_margin="15dp"/>
 
