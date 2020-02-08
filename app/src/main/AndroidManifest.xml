@@ -13,11 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.category.CategoryActivity" />
-        <activity android:name=".ui.product.ProductsActivity" />
-        <activity android:name=".ui.main.IntroActivity" />
+
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.main.intro.IntroSlidersActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +23,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.category.CategoryActivity" />
+        <activity android:name=".ui.product.ProductsActivity" />
+        <activity android:name=".ui.main.MainActivity" />
     </application>
 
 </manifest>
